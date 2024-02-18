@@ -5,7 +5,6 @@ import { Button } from "./Button";
 import './navBar.css';
 
 function NavBar(){
-    const navigate = useNavigate();
     const [username, setUsername] = useState();
     const [loggedIn, setLoggedIn] = useState();
 
@@ -16,26 +15,9 @@ function NavBar(){
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
-    const showButton = () => {
-        if(window.innerWidth <= 960){
-            setButton(false);
-        }
-        else{
-            setButton(true);
-        }
-    };
 
-    useEffect(()=> {
-        showButton();
-        if (window.localStorage && window.localStorage.getItem('username')) {
-            setLoggedIn(true);
-            setUsername(window.localStorage.username);
-        } else {
-            setLoggedIn(false);
-        }
-    }, []);
 
-    window.addEventListener('resize', showButton);
+
 
     return(
     <>
@@ -63,23 +45,13 @@ function NavBar(){
                             Players
                         </Link>
                     </li>
+                    
                     <li className="navItem">
-                    {window.localStorage.getItem("role") === "Organizer" || window.localStorage.getItem("role") === "Admin" ? 
-                        <Link to="/OwnerView" className="navLinks" onClick={closeMobileMenu}>
-                            Owner
-                        </Link>
-                        : <div></div>
-                    }
-                    </li>
-                    <li className="navItem">
-                        {loggedIn ? <Link to="/user-page" className="navLinksMobile" onClick={closeMobileMenu}>
-                            {username}
-                        </Link>
-                        :
+                        
                         <Link to="/login" className="navLinksMobile" onClick={closeMobileMenu}>
                             LOGIN
                         </Link>
-                        }
+                        
                     </li>
                 </ul>
                 <ul className="userPage">
